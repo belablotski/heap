@@ -1,3 +1,4 @@
+import heapq
 from datetime import datetime
 
 def top_n_v1(data, n):
@@ -50,10 +51,31 @@ def top_n_v2(data, n):
     
     return max_elements.to_sorted_list(reverse=True)
 
+def top_n_v3(data, n):
+    """
+    Return the top n elements from the data list using a heap.
+    
+    :param data: List of elements
+    :param n: Number of top elements to return
+    :return: List of top n elements
+    """
+    if not isinstance(data, list):
+        raise ValueError("Data must be a list.")
+    
+    if not isinstance(n, int) or n < 0:
+        raise ValueError("n must be a non-negative integer.")
+    
+    if n == 0:
+        return []
+    
+    return heapq.nlargest(n, data)
+
 def top_n(data, n):
     result1 = top_n_v1(data, n)
     result2 = top_n_v2(data, n)
     assert result1 == result2, f"Results do not match: {result1} != {result2}"
+    result3 = top_n_v3(data, n)
+    assert result1 == result3, f"Results do not match: {result1} != {result3}"
     print(f"Top {n} of {data} elements: {result1}")
     return result1
 
@@ -98,3 +120,5 @@ if __name__ == "__main__":
 
     load_tests(top_n_v1)
     load_tests(top_n_v2)
+    load_tests(top_n_v3)
+    

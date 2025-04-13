@@ -1,3 +1,5 @@
+# See https://docs.python.org/3/library/heapq.html
+
 import math
 
 class Heap(object):
